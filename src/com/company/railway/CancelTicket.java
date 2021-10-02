@@ -10,15 +10,15 @@ public class CancelTicket {
         int bookedPosition=p.getNumber();
         System.out.println("--------cancelled successfully");
         if(p.getAllotted().equals("L")){
-            Tickets.availableLowerBerth++;
+            TicketBooker.availableLowerBerth++;
             TicketBooker.lowerBerthPosition.add(bookedPosition);
         }
         else if(p.getAllotted().equals("M")){
-            Tickets.availableMiddleBerth++;
+            TicketBooker.availableMiddleBerth++;
             TicketBooker.middleBerthPosition.add(bookedPosition);
         }
         else if(p.getAllotted().equals("U")){
-            Tickets.availableUpperBerth++;
+            TicketBooker.availableUpperBerth++;
             TicketBooker.upperBerthPosition.add(bookedPosition);
         }
         if(TicketBooker.racList.size()>0){
@@ -26,7 +26,7 @@ public class CancelTicket {
             int racPosition=racPass.getNumber();
             TicketBooker.racListPosition.add(racPosition);
             TicketBooker.racList.remove(racPass.getPassengerId());
-            Tickets.availableRacTickets++;
+            TicketBooker.availableRacTickets++;
             if(TicketBooker.waitingList.size()>0){
                 Passenger waitPass=TicketBooker.passengers.get(TicketBooker.waitingList.poll());
                 int wlPosition=waitPass.getNumber();
@@ -36,8 +36,8 @@ public class CancelTicket {
                 waitPass.setAllotted("RAC");
                 TicketBooker.racListPosition.remove(0);
                 TicketBooker.racList.add(waitPass.getPassengerId());
-                Tickets.availableWaitingList++;
-                Tickets.availableRacTickets--;
+                TicketBooker.availableWaitingList++;
+                TicketBooker.availableRacTickets--;
             }
             BookTickets.bookTickets((List<Passenger>) racPass);
         }
